@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Club {
+  id        Int          @id @default(autoincrement())
+  name      String       @unique
+  password  String
+  points    Int          @default(0)
+  createdAt DateTime     @default(now())
+  reservations Reservation[]
+}
+
+model Classroom {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  capacity  Int
+  status    String
+  availablePerDay Json?  // 日付ごとの可否 (key=date)
+  reservations Reservation[]
+}
+
+model Reservation {
+  id        Int      @id @default(autoincrement())
+  club      Club     @relation(fields: [clubId], references: [id])
+  clubId    Int
+  classroom Classroom? @relation(fields: [classroomId], references: [id])
+  classroomId Int?
+  day       String
+  data      Json?
+  createdAt DateTime @default(now())
+}
+
+model LotteryHistory {
+  id          Int      @id @default(autoincrement())
+  executedAt  DateTime @default(now())
+  allocations Json
+}
