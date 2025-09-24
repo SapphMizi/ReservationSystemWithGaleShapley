@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+// This is your Prisma schema file for PostgreSQL (Production/Preview)
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
@@ -6,41 +6,42 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Club {
   id        Int          @id @default(autoincrement())
-  name      String       @unique
-  password  String
+  name      String       @unique @db.VarChar(100)
+  password  String       @db.VarChar(100)
   points    Int          @default(0)
-  createdAt DateTime     @default(now())
+  createdAt DateTime     @default(now()) @db.Timestamptz(6)
   reservations Reservation[]
 }
 
 model Classroom {
   id        Int      @id @default(autoincrement())
-  name      String   @unique
+  name      String   @unique @db.VarChar(50)
   capacity  Int
-  status    String
+  status    String   @db.VarChar(20)
   availablePerDay Json?  // 日付ごとの可否 (key=date)
   reservations Reservation[]
 }
 
 model Reservation {
   id        Int      @id @default(autoincrement())
-  club      Club     @relation(fields: [clubId], references: [id])
+  club      Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId    Int
-  classroom Classroom? @relation(fields: [classroomId], references: [id])
+  classroom Classroom? @relation(fields: [classroomId], references: [id], onDelete: SetNull)
   classroomId Int?
-  day       String
+  day       String   @db.VarChar(20)
   data      Json?
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
 }
 
 model LotteryHistory {
   id          Int      @id @default(autoincrement())
-  executedAt  DateTime @default(now())
+  executedAt  DateTime @default(now()) @db.Timestamptz(6)
   allocations Json
-}
+} 

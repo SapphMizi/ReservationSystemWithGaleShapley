@@ -45,9 +45,7 @@ export async function GET() {
     return NextResponse.json(allRooms);
   } catch (error) {
     console.error(error);
-    // 本番環境 (Vercel) では SQLite が書き込み不可のため、
-    // 取得エラー時はサンプルデータをそのまま返す
-    return NextResponse.json(sampleRooms);
+    return NextResponse.json({ error: '教室データの取得に失敗しました' }, { status: 500 });
   }
 }
 

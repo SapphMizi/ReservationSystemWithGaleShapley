@@ -124,7 +124,7 @@ CREATE TABLE "Classroom" (
     "availablePerDay" JSONB
 );
 
--- 他のテーブルも同様に作成...
+-- 他のテーブルも同様に作成（SQLiteは使用しません）
 ```
 
 3. **サンプルデータ投入**:

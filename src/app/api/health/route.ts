@@ -33,11 +33,8 @@ export async function GET() {
     
     // データベースプロバイダーを検出
     const databaseUrl = process.env.DATABASE_URL || '';
-    if (databaseUrl.includes('postgresql://')) {
-      healthCheck.database.provider = 'postgresql';
-    } else if (databaseUrl.includes('file:')) {
-      healthCheck.database.provider = 'sqlite';
-    }
+    // 以降は常にSupabase(PostgreSQL)を想定
+    healthCheck.database.provider = databaseUrl.includes('postgresql://') ? 'postgresql' : 'postgresql';
     
     console.log('✅ Database connection successful');
     

@@ -20,9 +20,7 @@ DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-REF].supaba
 # Direct connection to the database (for migrations)
 DIRECT_URL="postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-REF].supabase.co:5432/postgres"
 
-# 開発環境でSQLiteを使用する場合（コメントアウト）
-# DATABASE_URL="file:./dev.db"
-# DIRECT_URL="file:./dev.db"
+<!-- SQLite接続例は廃止しました。Supabase(PostgreSQL)のみを使用してください。 -->
 ```
 
 **設定値の取得方法:**
@@ -68,18 +66,7 @@ npm run build:vercel
 
 上記の Supabase 設定を使用して開発環境でも本番と同じデータベースを利用
 
-### Option 2: SQLiteをローカルで使用（簡易）
-
-1. `.env.local` ファイルを作成：
-```env
-DATABASE_URL="file:./dev.db"
-DIRECT_URL="file:./dev.db"
-```
-
-2. スキーマ適用：
-```bash
-npm run db:push
-```
+<!-- SQLiteローカル使用オプションは廃止 -->
 
 ## データベース操作コマンド
 
@@ -113,5 +100,4 @@ npx prisma db push --force-reset
 ```
 
 ### 開発環境と本番環境でのデータベース切り替え
-- 開発: `.env.local` でSQLiteまたはSupabase
-- 本番: Vercelの環境変数でSupabase 
+- 開発/本番ともにSupabaseを使用

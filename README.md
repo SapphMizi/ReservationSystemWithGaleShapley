@@ -53,7 +53,7 @@ npm run build:vercel
 
 - **フロントエンド**: Next.js 15.3.3 (最新) + App Router, TypeScript, Tailwind CSS v4
 - **バックエンド**: Next.js API Routes + Prisma ORM 6.11.1
-- **データベース**: **Supabase (PostgreSQL)** 🆕 / SQLite (開発環境)
+- **データベース**: **Supabase (PostgreSQL)**
 - **UI Framework**: Radix UI, Lucide React Icons
 - **スタイリング**: Tailwind CSS v4 (最新) + Tailwind Animate
 - **開発環境**: Turbopack対応, TypeScript 5, React 19.0.0
@@ -87,14 +87,7 @@ npm run supabase:deploy
 npm run dev:supabase
 ```
 
-#### Option 2: SQLite使用（ローカル開発）
-```bash
-# 環境設定
-echo 'DATABASE_URL="file:./dev.db"' > .env.local
-
-# セットアップ
-npm run dev:sqlite
-```
+<!-- SQLiteオプションは廃止しました。開発・本番ともにSupabase(PostgreSQL)を使用してください。 -->
 
 ## 🆕 新機能：リアルタイムデータ同期
 
@@ -130,7 +123,6 @@ npm run dev:sqlite
 ```bash
 # 開発
 npm run dev              # Turbopack開発サーバー
-npm run dev:sqlite       # SQLiteで開発
 npm run dev:supabase     # Supabaseで開発
 
 # データベース
@@ -173,7 +165,7 @@ npm run build:vercel     # Vercel用ビルド
 ### データベース・バックエンド
 - **Prisma**: 6.11.1 (最新ORM)
 - **Supabase**: PostgreSQL (本番環境)
-- **SQLite**: 開発環境用DB
+<!-- SQLiteは廃止 -->
 
 ## 🔍 トラブルシューティング
 
